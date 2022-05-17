@@ -62,7 +62,7 @@ span.JoKenPo:hover{
     box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
 }
 
-input#botao{
+input.botao{
     background-color: rgb(91, 76, 113);
     color: whitesmoke;
 
@@ -77,13 +77,17 @@ input#botao{
     margin-bottom:20px;
 }
 
-input#botao:hover{
+input.botao:hover{
     box-shadow: inset 0px 0px 9px 3px rgba(0, 0, 0, 0.374);
 }
 
-input#botao:active{
+input.botao:active{
     background-color: rgb(141, 137, 157);
     color: rgb(35, 23, 67);
+}
+
+input#botaoJogarNovamente{
+    display:none;
 }
 
 footer{
