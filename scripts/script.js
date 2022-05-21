@@ -75,7 +75,7 @@ function Resultado(){
         res.innerHTML += `<p> ${partidas.length}ª partida de 3.`
     } else {
         for(let c in partidas){
-            res.innerHTML += `<p>Na <strong>${c + 1}ª partida</strong> você obteve um(a) ${partidas[c]}.</p>`
+            res.innerHTML += `<p>Na <strong>${Number(c) + 1}ª partida</strong> você obteve um(a) ${partidas[c]}.</p>`
             if(partidas[c] == '\u{1F3C6} vitória \u{1F3C6}'){
                 vitorias ++
             } else if(partidas[c] == '\u{1F62D} derrota \u{1F62D}'){
