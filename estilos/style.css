@@ -89,7 +89,9 @@ input.botao:active{
 input#botaoJogarNovamente{
     display:none;
 }
-
+input#botaoHistorico{
+    display:none;
+}
 footer{
     text-align: center;
 

@@ -4,8 +4,12 @@ let partidas = []
 function PedraPapelTesoura(){
     if(partidas.length >= 3){
         alert('[ERRO] Você já jogou três partidas, para jogar novamente dê refresh ou aperte jogar novamente')
-        let botao = document.querySelector('input#botaoJogarNovamente')
-        botao.setAttribute('style','display:inline')
+        let botao1 = document.querySelector('input#botaoJogar')
+        let botao2 = document.querySelector('input#botaoJogarNovamente')
+        let botao3 = document.querySelector('input#botaoHistorico')
+        botao1.setAttribute('style','display:none')
+        botao2.setAttribute('style','display:inline')
+        botao3.setAttribute('style','display:inline')
     } else{
         let joKenPo = document.getElementsByName('radioJoKenPo')
         let res = document.querySelector('section#res')
@@ -53,16 +57,28 @@ function PedraPapelTesoura(){
             res.innerHTML += `<br>\u{1F62D} Você <strong>perdeu</strong>! \u{1F62D}`
             partidas.push('\u{1F62D} derrota \u{1F62D}')
         }
-        Resultado()    
+        Contador()    
     }
 }
 
 function JogarNovamente(){
     let res = document.querySelector('section#res')
     let res2 = document.querySelector('section#res2')
+    let botao1 = document.querySelector('input#botaoJogar')
+    let botao2 = document.querySelector('input#botaoJogarNovamente')
+    let botao3 = document.querySelector('input#botaoHistorico')
+    botao1.setAttribute('style','display:inline')
+    botao2.setAttribute('style','display:none')
+    botao3.setAttribute('style','display:none')
     res.innerHTML = ''
     res2.innerHTML = ''
     partidas.length = 0
+}
+
+function Contador(){
+    if(partidas.length <= 3){
+        res.innerHTML += `<p> ${partidas.length}ª partida de 3.`
+    }
 }
 
 function Resultado(){
@@ -71,9 +87,7 @@ function Resultado(){
     let derrotas = 0
     let empates = 0
     res.innerHTML = ''
-    if(partidas.length < 3){
-        res.innerHTML += `<p> ${partidas.length}ª partida de 3.`
-    } else {
+    if(partidas.length >= 3){
         for(let c in partidas){
             res.innerHTML += `<p>Na <strong>${Number(c) + 1}ª partida</strong> você obteve um(a) ${partidas[c]}.</p>`
             if(partidas[c] == '\u{1F3C6} vitória \u{1F3C6}'){
