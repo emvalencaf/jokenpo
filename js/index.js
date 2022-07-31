@@ -12,8 +12,9 @@ import { JoKenPoModel } from "./Model/Jokenpo.model.js"
     )
     const joKenPoService = new JoKenPoService(new JoKenPoModel())
     const joKenPoController = new JoKenPoController(joKenPoView, joKenPoService) 
-    console.log(joKenPoService)
-const main = document.querySelector("main")
+    console.log(joKenPoView)
+//DOM
+    const main = document.querySelector("main")
 
 //buscando a jogada no DOM
     main.addEventListener("click",e=>{
@@ -25,11 +26,14 @@ const main = document.querySelector("main")
             })
         }
 
-        if(e.target.id === "botaoJogarNovamente"){
-            joKenPoController.definirNovoJogo()
-        }
+        if(e.target.id === "botaoJogarNovamente") return joKenPoController.definirNovoJogo()
 
-        if(e.target.id === "botaoHistorico"){
-            joKenPoController.mostrarHistorico()
-        }
+        if(e.target.id === "botaoHistorico") return joKenPoController.mostrarHistorico()
+
+        if(e.target.classList === "joKenPo") console.log("olá")
     })
+
+    joKenPoView.checkboxs.forEach( chkbx => chkbx.addEventListener("change", e =>{
+        console.log("mudou")
+        if(e.target.checked) return joKenPoController.renderizarCheckBox(e.target.parentElement)
+    }))

@@ -14,10 +14,11 @@ export class JoKenPoView{
         }
 
     }
-    renderizarCheckboxed(selecionado){
-        selecionado.classList.add("checkbox-active")
+    renderizarCheckbox(selecionado){
+
+        selecionado.classList.add("active")
         this.checkboxs.forEach(chkbx =>{
-            if(chkbx.checked) chkbx.classList.remove("checkbox-active")
+            if(!chkbx.checked) chkbx.parentElement.classList.remove("active")
         })
     }
     limparRenderizacao(){

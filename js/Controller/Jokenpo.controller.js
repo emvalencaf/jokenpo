@@ -24,4 +24,9 @@ export class JoKenPoController{
         this.service.pegarHistorico()
         this.view.renderizarHistorico(this.service.partidasRegistros.registros, this.service.analisarResultado, this.service.outcome)
     }
+
+    renderizarCheckBox(selecionado){
+        console.log(selecionado)
+        this.view.renderizarCheckbox(selecionado)
+    }
 }

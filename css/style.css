@@ -22,7 +22,10 @@ main{
     border: 1px solid black;
     box-shadow: 0px 0px 9px 3px rgba(227, 176, 245, 0.434);
 
+    max-width: 400px;
+    max-height: 400px;
     width:400px;
+    height: 400px;
 
     margin: auto;
 }
@@ -61,13 +64,11 @@ div{
 .joKenPo:hover{
     box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
 }
-
+.joKenPo.active{
+    box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
+}
 .joKenPo .input-checkbox{
     display:none;
-}
-
-.joKenPo .input-checkbox .checkbox-active{
-    box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
 }
 
 .btn{
@@ -103,4 +104,9 @@ footer{
     text-align: center;
 
     margin-top: 20px;
+}
+
+footer a{
+    color: whitesmoke;
+    text-decoration: none;
 }
