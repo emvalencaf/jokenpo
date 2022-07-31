@@ -1,8 +1,9 @@
 export class JoKenPoView{
-    constructor(res1, res2, btns){
+    constructor(res1, res2, btns, chkbx){
         this.resJogo = res1
         this.resHist = res2
         this.btns = btns
+        this.checkboxs = chkbx
         this.emojis = {
             tesoura:"\u{270C}",
             papel:"\u{1F590}",
@@ -13,12 +14,23 @@ export class JoKenPoView{
         }
 
     }
-    
+    renderizarCheckboxed(selecionado){
+        selecionado.classList.add("checkbox-active")
+        this.checkboxs.forEach(chkbx =>{
+            if(chkbx.checked) chkbx.classList.remove("checkbox-active")
+        })
+    }
+    limparRenderizacao(){
+        this.resJogo.innerHTML = ""
+        this.resHist.innerHTML = ""
+    }
     renderizarBtns(){
+        this.limparRenderizacao()
         this.btns.forEach(btn => btn.classList.toggle("btn-inativo"))
     }
 
-    renderizarResultado({player, pc, resultado, partida}){
+    renderizarResultado({player, pc, resultado}, partida){
+        this.limparRenderizacao()
         const regex = /e$/
         const html = `
             <p>
@@ -33,7 +45,22 @@ export class JoKenPoView{
         `
         this.resJogo.innerHTML = html
     }
-    renderizarHistorico(){
-        console.log("renderizando o histórico das três partidas")
+
+    renderizarHistorico(historico, cb, gameset){
+        this.limparRenderizacao()
+
+        if(!typeof cb === "function") throw new Error("é precisso passar uma função de call-back a essa função")
+
+        const regex = /e$/
+        const html = historico.map((partida, i) =>{
+            const resultado = cb(partida.player, partida.pc, gameset)
+            return`
+            <p>
+            ${this.emojis[resultado]}Na ${++i}ª partida você jogou ${partida.player} e seu adversário ${partida.pc}. O resultado foi ${regex.test(resultado)? "um":"uma"} <strong>${resultado === "vitoria"? "vitória":resultado}</strong>${this.emojis[resultado]}.
+            </p>
+            `
+        }).join("")
+
+        this.resHist.innerHTML = html
     }
 }

@@ -1,7 +1,7 @@
 export class JoKenPoService{
     constructor(registros){
-        this.partidas = 0
         this.partidasRegistros = registros
+        this.partidas = this.partidasRegistros.registros.length
         this.outcome = {
             vitoria:[
                 {
@@ -21,20 +21,18 @@ export class JoKenPoService{
     }
 
     definirJogada(jogada){
-        
+
         const jogadas = ["tesoura", "papel", "pedra"]
         const pcJogada = jogadas[this.definirJogadaAdv()]
-        const resultado = this.analisarResultado(jogada.id, pcJogada)
-
-        ++this.partidas
+        const resultado = this.analisarResultado(jogada.id, pcJogada, this.outcome)
 
         const obj = {
             player: jogada.id,
             pc: pcJogada,
-            resultado: resultado,
-            partida: this.partidas
+            resultado: resultado
         }
 
+        this.registrarNovaPartida(obj)      
         return obj
     }
 
@@ -42,13 +40,13 @@ export class JoKenPoService{
         return Math.floor((Math.random() * 3))
     }
 
-    analisarResultado(player, pc){
+    analisarResultado(player, pc, gameset){
 
         if(player === pc) return "empate"
 
         let outcome = ""
 
-        this.outcome.vitoria.forEach(resultado=>{
+        gameset.vitoria.forEach(resultado=>{
             
             if(resultado.player === player && resultado.pc === pc) return outcome = "vitoria"
 
@@ -60,16 +58,23 @@ export class JoKenPoService{
     }
 
     pegarHistorico(){
-        const registros = JSON.parse(sessionStorage.getItem("partidas")) || []
-        this.partidasRegistros = registros
-        console.log("resgatando histórico", this.partidasRegistros.registros)
+        this.partidasRegistros.registros = JSON.parse(sessionStorage.getItem("partidas")) || []
+        this.partidas = this.partidasRegistros.registros.length
     }
 
-    registrarNovaPartida(player, pc){
-        console.log("novo registro", player, pc)
+    registrarNovaPartida({player, pc}){
+
+        this.pegarHistorico()
+        this.partidasRegistros.registros.push({player, pc, date: Date.now()})
+        this.partidas = this.partidasRegistros.registros.length
+
+        sessionStorage.setItem("partidas",JSON.stringify(this.partidasRegistros.registros))
+
+
     }
 
     apagarHistorico(){
         sessionStorage.removeItem("partidas")
+        this.pegarHistorico()
     }
 }

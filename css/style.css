@@ -35,7 +35,7 @@ section p{
     padding-top:20px;
 }
 
-section#res{
+#res{
     text-align: center;
     line-height:1.5em;
     padding-bottom:20px;
@@ -59,6 +59,14 @@ div{
 }
 
 .joKenPo:hover{
+    box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
+}
+
+.joKenPo .input-checkbox{
+    display:none;
+}
+
+.joKenPo .input-checkbox .checkbox-active{
     box-shadow: inset 0px 0px 9px 2px rgb(227, 193, 252);
 }
 
