@@ -1,6 +1,41 @@
+import { JoKenPoController } from "./Controller/Jokenpo.controller.js"
+import { JoKenPoService } from "./Service/Jokenpo.service.js"
+import { JoKenPoView } from "./View/Jokenpo.view.js"
+import { PartidasModel } from "./Model/Partidas.model.js"
+
+//módulos do jogo
+    const joKenPoView = new JoKenPoView(
+        document.querySelector('#res'),
+        document.querySelector('#res2'),
+        [...document.querySelectorAll("button")]
+    )
+    const joKenPoService = new JoKenPoService(new PartidasModel())
+    const joKenPoController = new JoKenPoController(joKenPoView, joKenPoService) 
+    console.log(joKenPoService)
+const main = document.querySelector("main")
+
+//buscando a jogada no DOM
+    main.addEventListener("click",e=>{
+        if(e.target.id === "botaoJogar"){
+            const inputs = [...main.querySelectorAll("input")]
+            inputs.forEach(input=>{
+                if(input.checked) return joKenPoController.definirJogada(input)
+            })
+        }
+
+        if(e.target.id === "botaoJogarNovamente"){
+            joKenPoController.definirNovoJogo()
+        }
+
+        if(e.target.id === "botaoHistorico"){
+            joKenPoController.mostrarHistorico()
+        }
+    })
+
+    
+/*
+
 let partidas = []
-
-
 function PedraPapelTesoura(){
     if(partidas.length >= 3){
         alert('[ERRO] Você já jogou três partidas, para jogar novamente dê refresh ou aperte jogar novamente')
@@ -107,4 +142,4 @@ function Resultado(){
             res.innerHTML += `<p>Você empatou \u{1F610} a melhor de 3.</p>`
         }
     }
-}
+}*/
