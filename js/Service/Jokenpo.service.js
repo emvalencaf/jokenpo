@@ -1,7 +1,7 @@
 export class JoKenPoService{
-    constructor(partidas){
-        this.partidasN = partidas
+    constructor(registros){
         this.partidas = 0
+        this.partidasRegistros = registros
         this.outcome = {
             vitoria:[
                 {
@@ -25,17 +25,17 @@ export class JoKenPoService{
         const jogadas = ["tesoura", "papel", "pedra"]
         const pcJogada = jogadas[this.definirJogadaAdv()]
         const resultado = this.analisarResultado(jogada.id, pcJogada)
-        this.partidasN.partidas[`${resultado}s`].push({
-            player: jogada.id,
-            pc:pcJogada
-        })
-        console.log(this.partidasN)
-        return {
+
+        ++this.partidas
+
+        const obj = {
             player: jogada.id,
             pc: pcJogada,
             resultado: resultado,
             partida: this.partidas
         }
+
+        return obj
     }
 
     definirJogadaAdv(){
@@ -46,16 +46,30 @@ export class JoKenPoService{
 
         if(player === pc) return "empate"
 
-        let resultado = ""
+        let outcome = ""
 
-        for(let prop in this.outcome){
+        this.outcome.vitoria.forEach(resultado=>{
+            
+            if(resultado.player === player && resultado.pc === pc) return outcome = "vitoria"
 
-            this.outcome[prop].forEach(resultado=>{
-                if(resultado.player === player && resultado.pc === pc) return resultado = "vitoria"
+        })
 
-                return resultado = "derrota"
-            })
-        }
-        return resultado
+        if(!outcome) return outcome = "derrota"
+
+        return outcome
+    }
+
+    pegarHistorico(){
+        const registros = JSON.parse(sessionStorage.getItem("partidas")) || []
+        this.partidasRegistros = registros
+        console.log("resgatando histórico", this.partidasRegistros.registros)
+    }
+
+    registrarNovaPartida(player, pc){
+        console.log("novo registro", player, pc)
+    }
+
+    apagarHistorico(){
+        sessionStorage.removeItem("partidas")
     }
 }

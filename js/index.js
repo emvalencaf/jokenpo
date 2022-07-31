@@ -1,7 +1,7 @@
 import { JoKenPoController } from "./Controller/Jokenpo.controller.js"
 import { JoKenPoService } from "./Service/Jokenpo.service.js"
 import { JoKenPoView } from "./View/Jokenpo.view.js"
-import { PartidasModel } from "./Model/Partidas.model.js"
+import { JoKenPoModel } from "./Model/Jokenpo.model.js"
 
 //módulos do jogo
     const joKenPoView = new JoKenPoView(
@@ -9,7 +9,7 @@ import { PartidasModel } from "./Model/Partidas.model.js"
         document.querySelector('#res2'),
         [...document.querySelectorAll("button")]
     )
-    const joKenPoService = new JoKenPoService(new PartidasModel())
+    const joKenPoService = new JoKenPoService(new JoKenPoModel())
     const joKenPoController = new JoKenPoController(joKenPoView, joKenPoService) 
     console.log(joKenPoService)
 const main = document.querySelector("main")
@@ -18,7 +18,8 @@ const main = document.querySelector("main")
     main.addEventListener("click",e=>{
         if(e.target.id === "botaoJogar"){
             const inputs = [...main.querySelectorAll("input")]
-            inputs.forEach(input=>{
+
+            return inputs.forEach(input=>{
                 if(input.checked) return joKenPoController.definirJogada(input)
             })
         }
