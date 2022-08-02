@@ -9,7 +9,7 @@ Em 31/07/2022, os códigos do jogo foram refatorados para o padrão MVC e feitas
 ## Conhecimentos utilizados
 - [x] Padrao MVC;
 - [x] Classes;
-- [x] Hoister;
+- [x] Hoisting;
 - [x] Storage (especificamente: sessionStorage) para armazenar os dados das partidas nas sessões do navegador do cliente;
 - [x] Iteração de array (especificamente por métodos) e objetos;
 - [x] Uso de ES2015;
